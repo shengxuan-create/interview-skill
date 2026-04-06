@@ -62,19 +62,47 @@ def fetch_url(url: str) -> str:
     except Exception as e:
         return ""
 
-def extract_skills(text: str) -> dict:
-    """Extract technical and soft skills from JD text."""
+PREFERRED_MARKERS = [
+    r"nice\s+to\s+have", r"preferred", r"bonus", r"plus",
+    r"ideally", r"a\s+plus", r"not\s+required",
+    r"优先", r"加分", r"有.*优先",
+]
+
+
+def _find_preferred_section(text: str) -> str:
+    """Extract the 'nice to have' / 'preferred' section of a JD, if any."""
     text_lower = text.lower()
-    found_tech = []
+    for marker in PREFERRED_MARKERS:
+        m = re.search(marker, text_lower)
+        if m:
+            # Return text from marker to next section heading or end (max 500 chars)
+            start = m.start()
+            return text[start:start + 500]
+    return ""
+
+
+def extract_skills(text: str) -> dict:
+    """Extract technical and soft skills from JD text, split into required vs preferred."""
+    text_lower = text.lower()
+    preferred_section = _find_preferred_section(text)
+    preferred_lower = preferred_section.lower()
+
+    found_required = []
+    found_preferred = []
     for skill in TECH_SKILLS:
-        # Use word boundary matching for short skill names to avoid false positives
         skill_lower = skill.lower()
         if len(skill_lower) <= 2:
-            if re.search(r'\b' + re.escape(skill_lower) + r'\b', text_lower):
-                found_tech.append(skill)
+            matched = bool(re.search(r'\b' + re.escape(skill_lower) + r'\b', text_lower))
+            in_preferred = bool(re.search(r'\b' + re.escape(skill_lower) + r'\b', preferred_lower)) if preferred_lower else False
         else:
-            if skill_lower in text_lower:
-                found_tech.append(skill)
+            matched = skill_lower in text_lower
+            in_preferred = skill_lower in preferred_lower if preferred_lower else False
+
+        if matched:
+            if in_preferred:
+                found_preferred.append(skill)
+            else:
+                found_required.append(skill)
 
     found_soft = []
     for pattern in SOFT_SKILLS_PATTERNS:
@@ -82,7 +110,11 @@ def extract_skills(text: str) -> dict:
         if matches:
             found_soft.append(matches[0])
 
-    return {"technical": list(set(found_tech)), "soft": list(set(found_soft))}
+    return {
+        "technical": list(set(found_required)),
+        "preferred": list(set(found_preferred)),
+        "soft": list(set(found_soft)),
+    }
 
 
 def extract_experience(text: str) -> str:
@@ -131,6 +163,7 @@ def parse_jd(text: str) -> dict:
         "title": title,
         "level": extract_level(text),
         "required_skills": skills["technical"],
+        "preferred_skills": skills["preferred"],
         "soft_skills": skills["soft"],
         "years_experience": extract_experience(text),
         "raw_text": text[:5000],

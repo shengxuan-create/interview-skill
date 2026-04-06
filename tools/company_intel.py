@@ -17,13 +17,6 @@ import sys
 from datetime import datetime
 from pathlib import Path
 
-try:
-    import requests
-    from bs4 import BeautifulSoup
-    HAS_WEB = True
-except ImportError:
-    HAS_WEB = False
-
 SEARCH_DIMENSIONS = [
     {
         "dimension": "company_overview",

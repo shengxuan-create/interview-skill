@@ -58,17 +58,21 @@ def normalize_skill(skill: str) -> str:
 
 def extract_skills_from_text(text: str) -> set:
     """Extract skills mentioned in resume text."""
-    # Import the skill list from jd_parser
-    tech_skills = [
-        "Python", "Java", "JavaScript", "TypeScript", "Go", "Rust", "C++", "C#",
-        "Ruby", "PHP", "Swift", "Kotlin", "SQL", "R", "MATLAB",
-        "React", "Vue", "Angular", "Node.js", "Django", "Flask", "Spring",
-        "Docker", "Kubernetes", "AWS", "GCP", "Azure", "Terraform",
-        "PostgreSQL", "MySQL", "MongoDB", "Redis", "Elasticsearch",
-        "Git", "CI/CD", "Linux", "REST", "GraphQL", "gRPC", "Kafka",
-        "Machine Learning", "Deep Learning", "NLP", "TensorFlow", "PyTorch",
-        "Spark", "Hadoop", "Airflow", "Figma", "Tableau",
-    ]
+    # Import the canonical skill list from jd_parser to avoid duplication
+    try:
+        from jd_parser import TECH_SKILLS as tech_skills
+    except ImportError:
+        # Fallback if running from a different directory
+        tech_skills = [
+            "Python", "Java", "JavaScript", "TypeScript", "Go", "Rust", "C++", "C#",
+            "Ruby", "PHP", "Swift", "Kotlin", "SQL", "R", "MATLAB",
+            "React", "Vue", "Angular", "Node.js", "Django", "Flask", "Spring",
+            "Docker", "Kubernetes", "AWS", "GCP", "Azure", "Terraform",
+            "PostgreSQL", "MySQL", "MongoDB", "Redis", "Elasticsearch",
+            "Git", "CI/CD", "Linux", "REST", "GraphQL", "gRPC", "Kafka",
+            "Machine Learning", "Deep Learning", "NLP", "TensorFlow", "PyTorch",
+            "Spark", "Hadoop", "Airflow", "Figma", "Tableau",
+        ]
     text_lower = text.lower()
     found = set()
     for skill in tech_skills:

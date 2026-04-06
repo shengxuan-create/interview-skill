@@ -19,13 +19,6 @@ import re
 from datetime import datetime
 from pathlib import Path
 
-try:
-    import requests
-    from bs4 import BeautifulSoup
-    HAS_WEB = True
-except ImportError:
-    HAS_WEB = False
-
 # Data source configurations
 SOURCES = {
     "glassdoor": {
@@ -62,10 +55,11 @@ def build_queries(company: str, role: str, sources: list) -> list:
 
 def search_source(query_info: dict) -> dict:
     """
-    Search a single source. In practice, this would use a search API.
-    The tool outputs structured query info for the AI agent to execute via WebSearch.
+    Build structured query info for the AI agent to execute via WebSearch.
+    This tool does NOT perform web requests itself — it generates queries
+    for the agent to run through its WebSearch tool.
     """
-    result = {
+    return {
         "source": query_info["source"],
         "source_name": query_info["name"],
         "query": query_info["query"],
@@ -73,29 +67,6 @@ def search_source(query_info: dict) -> dict:
         "message": f"Execute this query via WebSearch: {query_info['query']}",
         "data_points": [],
     }
-    
-    # If requests is available, attempt a basic search
-    if HAS_WEB:
-        try:
-            headers = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)"}
-            search_url = f"https://www.google.com/search?q={requests.utils.quote(query_info['query'])}&num=10"
-            resp = requests.get(search_url, headers=headers, timeout=10)
-            if resp.status_code == 200:
-                soup = BeautifulSoup(resp.text, "html.parser")
-                links = []
-                for a in soup.find_all("a", href=True):
-                    href = a["href"]
-                    if href.startswith("/url?q="):
-                        url = href.split("/url?q=")[1].split("&")[0]
-                        if "google.com" not in url:
-                            links.append(url)
-                result["status"] = "urls_found"
-                result["urls"] = links[:5]
-        except Exception as e:
-            result["status"] = "search_failed"
-            result["error"] = str(e)
-    
-    return result
 
 def aggregate(company: str, role: str, sources: list) -> dict:
     """Aggregate interview data from multiple sources."""

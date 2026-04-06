@@ -114,6 +114,8 @@ def rollback(slug: str, base_dir: Path, version: str) -> dict:
 
     # Backup current state first
     backup_result = backup(slug, base_dir)
+    if "error" in backup_result:
+        return {"error": "backup_before_rollback_failed", "message": f"Cannot rollback: pre-rollback backup failed — {backup_result['message']}"}
 
     # Restore from target version
     for item in target.iterdir():

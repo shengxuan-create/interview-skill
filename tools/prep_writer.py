@@ -16,10 +16,26 @@ Usage:
 
 import argparse
 import json
+import re
 import sys
 import shutil
 from datetime import datetime
 from pathlib import Path
+from typing import Optional
+
+
+SLUG_PATTERN = re.compile(r'^[a-zA-Z0-9][a-zA-Z0-9_-]*$')
+
+
+def validate_slug(slug: str) -> Optional[str]:
+    """Validate slug. Returns error message if invalid, None if OK."""
+    if not slug or len(slug) > 100:
+        return "Slug must be 1-100 characters"
+    if not SLUG_PATTERN.match(slug):
+        return "Slug must contain only letters, digits, hyphens, and underscores"
+    if ".." in slug or "/" in slug or "\\" in slug:
+        return "Slug must not contain path separators"
+    return None
 
 
 PREP_FILES = [
@@ -134,6 +150,13 @@ def main():
     args = parser.parse_args()
 
     base = Path(args.base_dir)
+
+    # Validate slug for actions that need it
+    if args.action in ("create", "export", "delete") and args.slug:
+        slug_err = validate_slug(args.slug)
+        if slug_err:
+            print(json.dumps({"error": "invalid_slug", "message": slug_err}))
+            sys.exit(1)
 
     if args.action == "create":
         if not args.slug:
