@@ -1,5 +1,7 @@
 # Step 1: 信息收集 / Intake
 
+> **Previous**: None (entry point) | **Next**: Step 2 resume_matcher.md (if resume provided) or Step 3a search_strategist.md
+
 Ask the user 5 questions. All questions except Q1 and Q2 can be skipped.
 Summarize answers and confirm before proceeding.
 
@@ -34,3 +36,20 @@ Processing rules:
 - C → `Read` tool to read PDF/image
 - D → Use as text directly
 - E → Skip, use generic framework later
+
+## Output
+
+After collecting all answers, summarize and confirm with the user before proceeding:
+
+```
+收集到的信息 / Information Collected:
+  - 公司 / Company: {company}
+  - 职位 / Role: {role}
+  - JD: {provided / skipped}
+  - 面试轮次 / Round: {round or "未指定"}
+  - 简历 / Resume: {provided / skipped}
+
+确认以上信息正确？/ Confirm and proceed?
+```
+
+Pass confirmed data to Step 2 (resume_matcher) if resume was provided, otherwise to Step 3a (search_strategist).

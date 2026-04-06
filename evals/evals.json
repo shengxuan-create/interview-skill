@@ -19,12 +19,84 @@
       "expected_behavior": "Enter intake flow, ask for JD source and interview round"
     },
     {
+      "id": "trigger_create_slash",
+      "description": "斜杠命令触发创建模式",
+      "input": "/interview-prep",
+      "should_trigger": true,
+      "expected_mode": "create",
+      "expected_behavior": "进入intake流程，从头开始询问公司和职位信息"
+    },
+    {
+      "id": "trigger_create_cn_variant",
+      "description": "中文变体触发 — 准备XX公司面试",
+      "input": "准备字节跳动后端工程师面试",
+      "should_trigger": true,
+      "expected_mode": "create",
+      "expected_behavior": "识别公司=字节跳动、职位=后端工程师，进入intake"
+    },
+    {
+      "id": "trigger_create_en_variant",
+      "description": "English variant — implicit interview prep request",
+      "input": "I need to prepare for my Amazon SDE interview, it's a phone screen",
+      "should_trigger": true,
+      "expected_mode": "create",
+      "expected_behavior": "Detect company=Amazon, role=SDE, round=phone screen, enter intake"
+    },
+    {
       "id": "trigger_mock",
       "description": "触发mock模式",
       "input": "/mock google-swe",
       "should_trigger": true,
       "expected_mode": "mock",
       "expected_behavior": "读取preps/google-swe/，直接开始模拟面试"
+    },
+    {
+      "id": "trigger_mock_cn",
+      "description": "中文触发mock模式",
+      "input": "模拟面试 google-swe",
+      "should_trigger": true,
+      "expected_mode": "mock",
+      "expected_behavior": "读取preps/google-swe/，开始模拟面试"
+    },
+    {
+      "id": "trigger_mock_en",
+      "description": "English trigger for mock mode",
+      "input": "mock interview for meta-pm",
+      "should_trigger": true,
+      "expected_mode": "mock",
+      "expected_behavior": "Load preps/meta-pm/ and start mock interview"
+    },
+    {
+      "id": "trigger_update_slash",
+      "description": "斜杠命令触发进化模式",
+      "input": "/update-prep google-swe",
+      "should_trigger": true,
+      "expected_mode": "update",
+      "expected_behavior": "读取preps/google-swe/，进入增量合并流程"
+    },
+    {
+      "id": "trigger_update_cn",
+      "description": "中文触发进化模式",
+      "input": "我有新面经要追加到google-swe",
+      "should_trigger": true,
+      "expected_mode": "update",
+      "expected_behavior": "识别slug=google-swe，进入merger流程"
+    },
+    {
+      "id": "trigger_correction_cn",
+      "description": "中文触发纠正模式",
+      "input": "不对，这家公司不是这样面的，应该是3轮技术面",
+      "should_trigger": true,
+      "expected_mode": "correct",
+      "expected_behavior": "进入纠正流程，识别需要修改的内容"
+    },
+    {
+      "id": "trigger_correction_en",
+      "description": "English trigger for correction mode",
+      "input": "That's wrong, the interview process is actually 2 rounds of system design",
+      "should_trigger": true,
+      "expected_mode": "correct",
+      "expected_behavior": "Enter correction flow, identify content to fix"
     },
     {
       "id": "trigger_debrief",
@@ -35,11 +107,88 @@
       "expected_behavior": "进入复盘收集流程"
     },
     {
-      "id": "no_trigger",
-      "description": "不应触发的普通对话",
+      "id": "trigger_debrief_slash",
+      "description": "斜杠命令触发复盘模式",
+      "input": "/debrief google-swe",
+      "should_trigger": true,
+      "expected_mode": "debrief",
+      "expected_behavior": "读取preps/google-swe/，进入复盘流程"
+    },
+    {
+      "id": "trigger_debrief_en",
+      "description": "English trigger for debrief mode",
+      "input": "I finished the interview at Meta, it was the onsite round",
+      "should_trigger": true,
+      "expected_mode": "debrief",
+      "expected_behavior": "Enter debrief flow, collect real interview questions"
+    },
+    {
+      "id": "trigger_list",
+      "description": "列出所有prep",
+      "input": "/list-preps",
+      "should_trigger": true,
+      "expected_mode": "list",
+      "expected_behavior": "调用prep_writer.py --action list，展示已有prep列表"
+    },
+    {
+      "id": "trigger_rollback",
+      "description": "版本回滚",
+      "input": "/prep-rollback google-swe v2",
+      "should_trigger": true,
+      "expected_mode": "rollback",
+      "expected_behavior": "调用version_manager.py --action rollback，回滚到v2版本"
+    },
+    {
+      "id": "trigger_delete",
+      "description": "删除prep",
+      "input": "/delete-prep google-swe",
+      "should_trigger": true,
+      "expected_mode": "delete",
+      "expected_behavior": "确认后调用prep_writer.py --action delete，删除prep"
+    },
+    {
+      "id": "no_trigger_code",
+      "description": "不应触发 — 普通编程请求",
       "input": "帮我写一个Python脚本",
       "should_trigger": false,
       "expected_behavior": "不激活interview-skill"
+    },
+    {
+      "id": "no_trigger_general",
+      "description": "不应触发 — 一般对话",
+      "input": "What's the weather like today?",
+      "should_trigger": false,
+      "expected_behavior": "Do not activate interview-skill"
+    },
+    {
+      "id": "no_trigger_interview_word",
+      "description": "不应触发 — 含'面试'但非准备请求",
+      "input": "帮我写一个面试管理系统的数据库schema",
+      "should_trigger": false,
+      "expected_behavior": "不激活interview-skill，这是编程任务而非面试准备"
+    },
+    {
+      "id": "no_trigger_mock_ambiguous",
+      "description": "不应触发 — 含'mock'但非面试",
+      "input": "Help me write mock tests for my API",
+      "should_trigger": false,
+      "expected_behavior": "Do not activate interview-skill — 'mock' here refers to test mocking"
+    },
+    {
+      "id": "edge_mixed_language",
+      "description": "边界 — 中英混合输入",
+      "input": "帮我准备Apple的iOS developer面试",
+      "should_trigger": true,
+      "expected_mode": "create",
+      "expected_behavior": "识别公司=Apple、职位=iOS developer，用中文回复（首句为中文）"
+    },
+    {
+      "id": "edge_no_company",
+      "description": "边界 — 未指定公司",
+      "input": "我要准备面试",
+      "should_trigger": true,
+      "expected_mode": "create",
+      "expected_behavior": "进入intake，首先询问目标公司名称"
     }
   ]
 }

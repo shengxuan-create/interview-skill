@@ -1,5 +1,7 @@
 # Step 2: 简历匹配 / Resume Matching
 
+> **Previous**: Step 1 intake.md | **Next**: Step 3a search_strategist.md
+
 **Only execute if user provided a resume in Step 1. Otherwise skip entirely.**
 
 ## Input

@@ -1,6 +1,8 @@
 # Post Interview — 面后复盘模式
 
-> 触发条件："我面完了" / "面试结束了" / `/debrief {slug}`
+> **Trigger**: "我面完了" / "面试结束了" / `/debrief {slug}`
+> **Operates on**: existing `preps/{slug}/` | **Related**: merger.md, correction_handler.md
+
 > 收集真实面试数据，对比预测准确度，数据回流到prep系统。
 
 ---

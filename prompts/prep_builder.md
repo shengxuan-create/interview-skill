@@ -1,5 +1,7 @@
 # Step 7: Prep Builder — 输出面试准备文档包
 
+> **Previous**: Step 6 answer_evaluator.md | **Next**: None (final step; user can later trigger merger.md / post_interview.md)
+
 > 将所有前序步骤的输出汇总为一套完整的面试准备文档。
 > 创建目录结构，写入所有文件，生成独立可运行的skill。
 

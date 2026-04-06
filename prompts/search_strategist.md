@@ -1,5 +1,7 @@
 # Step 3a: 多维搜索策略 / Search Strategy
 
+> **Previous**: Step 2 resume_matcher.md (or Step 1 intake.md) | **Next**: Step 3b result_evaluator.md
+
 Generate 10-15 targeted search queries across 5 dimensions.
 Do NOT run a single generic search. Each dimension gets 2-3 specific queries.
 
@@ -23,4 +25,16 @@ python3 ${CLAUDE_SKILL_DIR}/tools/leetcode_tracker.py --company {name} --months 
 ```
 
 ## Output
-Pass all search results to Layer 2 (result_evaluator.md) for scoring.
+
+For each query executed, produce a structured result:
+
+```
+Dimension: {dimension_name}
+Query: {search_query}
+Results found: {N}
+Top results:
+  - {source_url}: {one-line summary} (date: {date})
+  - ...
+```
+
+Pass all search results to Step 3b (result_evaluator.md) for scoring.

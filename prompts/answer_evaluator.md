@@ -1,5 +1,7 @@
 # Step 6: Answer Evaluator — STAR框架评分
 
+> **Previous**: Step 5 mock_interviewer.md | **Next**: Step 7 prep_builder.md (automatic after evaluation)
+
 > 对模拟面试中用户的每个回答进行结构化评分。
 > 使用 STAR 框架分析 behavioral 题，使用技术评分标准分析 technical 题。
 > 参考 `references/star_framework.md`。

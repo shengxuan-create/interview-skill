@@ -1,6 +1,8 @@
 # Correction Handler — 纠正模式
 
-> 触发条件："不对" / "这家公司不是这样面的" / "面试流程应该是"
+> **Trigger**: "不对" / "这家公司不是这样面的" / "面试流程应该是"
+> **Operates on**: existing `preps/{slug}/` | **Related**: merger.md, post_interview.md
+
 > 处理用户对现有prep内容的纠正，更新对应文件。
 
 ---

@@ -1,5 +1,7 @@
 # Step 5: Mock Interviewer — 模拟面试
 
+> **Previous**: Step 4 question_generator.md | **Next**: Step 6 answer_evaluator.md (automatic after interview ends)
+
 > AI扮演该公司面试官，采用该公司的面试风格进行模拟面试。
 > 模拟真实面试体验：不在过程中给反馈，结束后统一评分。
 
@@ -57,12 +59,32 @@
 → 结束
 ```
 
-## 记录规则
+## Output
 
-完整记录面试过程到 `mock_script.md`：
-- 每道题的提问原文
-- 用户的完整回答
-- 追问和追问回答
-- 时间戳标记（可选）
+Record the full interview to `mock_script.md` in this format:
 
-面试结束后自动进入 Step 6 answer_evaluator。
+```markdown
+# Mock Interview — {company} {role}
+
+> Date: {date} | Round: {round} | Questions: {N}
+
+## Q1: {question text}
+**Answer**: {user's full answer}
+**Follow-up 1**: {follow-up question, if any}
+**Answer**: {user's answer}
+
+## Q2: {question text}
+...
+
+## Closing
+Interviewer: {closing remarks}
+User questions: {if any}
+```
+
+Record:
+- Every question asked (original text)
+- User's complete answers
+- All follow-ups and follow-up answers
+- Timestamp markers (optional)
+
+Interview ends automatically into Step 6 answer_evaluator.

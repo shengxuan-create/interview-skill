@@ -1,5 +1,7 @@
 # Step 3b: 结果评分过滤 / Result Scoring & Filtering
 
+> **Previous**: Step 3a search_strategist.md | **Next**: Step 3c cross_validator.md
+
 Score each search result from Layer 1 on 3 dimensions (1-5 each).
 Discard results scoring below 2.5 composite.
 

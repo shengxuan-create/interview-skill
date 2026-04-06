@@ -1,6 +1,8 @@
 # Merger — 进化模式：增量合并
 
-> 触发条件："我有新面经" / "追加" / `/update-prep {slug}`
+> **Trigger**: "我有新面经" / "追加" / `/update-prep {slug}`
+> **Operates on**: existing `preps/{slug}/` | **Related**: correction_handler.md, post_interview.md
+
 > 将用户提供的新情报增量合并到现有prep中，保持版本历史。
 
 ---

@@ -1,5 +1,7 @@
 # Step 3d: User Supplement — 用户补充 + 二次搜索
 
+> **Previous**: Step 3c cross_validator.md | **Next**: Step 3e company_synthesizer.md
+
 > 本模板在 Research Engine Layer 1-3 完成后执行。
 > 将自动调研结果展示给用户，标注置信度，收集额外情报，必要时做二次搜索。
 

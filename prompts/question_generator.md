@@ -1,5 +1,7 @@
 # Step 4: Question Generator — 面试题生成
 
+> **Previous**: Step 3e company_synthesizer.md | **Next**: Step 5 mock_interviewer.md (after user confirmation)
+
 > 基于公司简报、JD解析、面试轮次和简历匹配结果，生成定制化面试题库。
 > 每道题标注频率、考察点和参考思路，不是泛泛的通用题。
 

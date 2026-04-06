@@ -1,5 +1,7 @@
 # Step 3c: 交叉验证+模式识别 / Cross-Validation & Pattern Recognition
 
+> **Previous**: Step 3b result_evaluator.md | **Next**: Step 3d user_supplement.md
+
 This is the key differentiator — statistical analysis across multiple interview reports.
 NOT just listing what you found. ANALYZE patterns.
 
@@ -18,7 +20,10 @@ NOT just listing what you found. ANALYZE patterns.
 - **LOW** — <25% or only 1-2 sources
 - **GAP** — 0 sources, information not found
 
-## Output Format
+## Output
+
+Present findings in this format, then pass to Step 3d (user_supplement.md):
+
 ```
 从 {N} 个数据源中提取到 {M} 条面试信息。
 

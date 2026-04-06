@@ -1,5 +1,7 @@
 # Step 3e: Company Synthesizer — 汇总公司简报
 
+> **Previous**: Step 3d user_supplement.md | **Next**: Step 4 question_generator.md (after user confirmation)
+
 > 本模板汇总 Research Engine Layer 1-4 所有数据，生成 company_brief.md。
 > 这是整个研究阶段的最终输出，也是后续题目生成和模拟面试的核心输入。
 
