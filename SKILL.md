@@ -41,6 +41,17 @@ allowed-tools: Read Write Edit Bash WebSearch
 **复盘模式：**
 - "我面完了" / "面试结束了" / `/debrief {slug}`
 
+**故事库模式：**
+- `/storybank` — 管理STAR故事库
+- `/storybank add` — 添加新故事
+- `/storybank list` — 查看所有故事
+- `/storybank gaps` — 查看能力缺口
+- "管理我的故事" / "添加一个故事"
+
+**面试前信心简报：**
+- `/hype {slug}` — 生成面试前信心简报
+- "给我打气" / "面试前准备"
+
 **管理命令：**
 - `/list-preps` — 列出所有已生成的prep
 - `/mock {slug}` — 进入模拟面试
@@ -66,8 +77,10 @@ allowed-tools: Read Write Edit Bash WebSearch
 | 写入/更新prep文件 | `Write` / `Edit` tool |
 | prep文档管理 | `Bash` → `python3 ${CLAUDE_SKILL_DIR}/tools/prep_writer.py` |
 | 版本管理 | `Bash` → `python3 ${CLAUDE_SKILL_DIR}/tools/version_manager.py` |
+| STAR故事管理 | `Bash` → `python3 ${CLAUDE_SKILL_DIR}/tools/storybank_manager.py` |
+| 面试前信心简报 | `Bash` → `python3 ${CLAUDE_SKILL_DIR}/tools/hype_generator.py` |
 
-**基础目录**：prep文件写入 `./preps/{slug}/`（相对于本项目目录）。
+**基础目录**：prep文件写入 `./preps/{slug}/`，故事库写入 `./storybank/`（均相对于本项目目录）。
 
 ---
 
@@ -784,6 +797,121 @@ Q5: 整体感觉如何？觉得能过吗？
 
 ---
 
+## 故事库 / Storybank
+
+管理可复用的 STAR 故事，跨公司面试共享，随 mock 练习自动进化。
+
+### 添加故事
+
+**触发**: `/storybank add` 或 "我想添加一个故事"
+
+1. 让用户用自由文本描述一段经历
+2. 解析为 STAR 结构（Situation/Task/Action/Result），标注薄弱部分
+3. 参考 `references/competency_taxonomy.md` 自动标记能力标签（leadership/conflict/failure 等15个类别）
+4. 用户确认标签和强度评分（1-5）
+5. 创建：
+   ```bash
+   python3 ${CLAUDE_SKILL_DIR}/tools/storybank_manager.py --action create \
+     --title "{title}" --competencies "{tags}" --industry "{industries}" \
+     --strength {N} --base-dir ./storybank
+   ```
+6. 用 Write 工具将完整 STAR 内容写入故事文件
+7. 展示覆盖度更新（STRONG/OK/WEAK/GAP）
+
+### 查看故事
+
+**触发**: `/storybank list`
+
+```bash
+python3 ${CLAUDE_SKILL_DIR}/tools/storybank_manager.py --action list --base-dir ./storybank
+```
+
+### 缺口分析
+
+**触发**: `/storybank gaps`
+
+```bash
+python3 ${CLAUDE_SKILL_DIR}/tools/storybank_manager.py --action gaps --base-dir ./storybank
+```
+
+对每个缺口给出建议：
+```
+GAP: failure — 你没有失败类故事。
+想想：一个出了问题的项目、一个错过的deadline、一个后悔的技术决策。
+即使是小失败也行，只要你能展示从中学到了什么。
+```
+
+### 自动集成（内部调用）
+
+**Step 4 自动匹配**: 对每个 behavioral 题目自动调用 `storybank_manager.py --action match`，将匹配的故事追加到 questions.md。
+
+**Step 5 mock 前速查**: mock 开始前展示故事速查表（仅一次），标注每道题可用的故事和缺口。
+
+**Step 6 自动进化**: 评分后自动调用 `storybank_manager.py --action evolve`，记录反馈并提示更新存储版本。
+
+**Step 7 prep_plan 引用**: prep_plan.md 中引用具体故事的练习任务和缺口补充。
+
+---
+
+## 面试前信心简报 / Hype
+
+基于用户 mock 评分和准备数据，生成个性化的面试前信心简报。数据驱动，不是空洞鼓励。
+
+### 触发
+
+**触发**: `/hype {slug}` 或 "给我打气" / "面试前准备"
+
+### 确定时间窗口
+
+如果 `meta.json` 有 `interview_date`，自动计算：
+- 7-3天前 → WEEK_BEFORE（战略性准备）
+- 1-2天前 → DAY_BEFORE（巩固+后勤）
+- 当天 → MORNING_OF（快速能量提升）
+
+否则询问用户。
+
+### 聚合数据
+
+```bash
+python3 ${CLAUDE_SKILL_DIR}/tools/hype_generator.py \
+  --slug {slug} --timing {timing} \
+  --interview-date {date_if_known} \
+  --base-dir ./preps --storybank-dir ./storybank
+```
+
+### 生成内容（根据时间窗口不同）
+
+**WEEK_BEFORE**：分数仪表盘 + 剩余优先级（最多5项）+ storybank 覆盖度 + 额外练习建议
+
+**DAY_BEFORE**：信心快照 + "你已掌握的5件事" + 竞争优势 + 后勤清单 + 心理准备 + 公司专属金句 + 3个核心故事速览
+
+**MORNING_OF**：60秒信心提振 + 3个关键故事（一行） + 开场脚本 + 紧急冷静方案（4-7-8呼吸） + 最终后勤确认
+
+### 公司文化风格
+
+根据目标公司自动选择语气和金句风格：
+- **Amazon**: 通过 LP 框架表达一切，"I took ownership by..."
+- **Google**: 强调思考过程，"Let me think through the tradeoffs..."
+- **Meta**: 强调影响力和速度，"This impacted X million users..."
+- **Startup**: 强调多面手和自驱力，"I built this from scratch..."
+- **银行/咨询**: 强调精准和结构化，"The analysis showed..."
+
+参考 `references/hype_templates.md` 获取完整金句和模板。
+
+### 语气规则
+
+- **绝对不用**空洞鼓励（"加油！"、"你可以的！"）
+- **必须**用具体数据锚定信心（"你的 behavioral 得了 4.2/5"）
+- 弱项说"已经在进步"而非"你不擅长"
+- 低分（<2.5）诚实但建设性
+- 能量匹配时间窗口
+
+### 输出
+
+写入 `preps/{slug}/hype.md`，同时在对话中展示。更新 meta.json。
+
+---
+
 ## 错误处理
 
 ```
@@ -828,6 +956,17 @@ Q5: 整体感觉如何？觉得能过吗？
 **Debrief Mode:**
 - "I finished the interview" / "interview is done" / `/debrief {slug}`
 
+**Storybank Mode:**
+- `/storybank` — Manage STAR story bank
+- `/storybank add` — Add a new story
+- `/storybank list` — View all stories
+- `/storybank gaps` — View competency gaps
+- "my stories" / "add a story"
+
+**Hype Mode (Pre-Interview Confidence):**
+- `/hype {slug}` — Generate pre-interview confidence briefing
+- "I need confidence" / "interview coming up"
+
 **Management Commands:**
 - `/list-preps` — List all generated preps
 - `/mock {slug}` — Start mock interview
@@ -853,8 +992,10 @@ Q5: 整体感觉如何？觉得能过吗？
 | Write/update prep files | `Write` / `Edit` tool |
 | Prep document management | `Bash` → `python3 ${CLAUDE_SKILL_DIR}/tools/prep_writer.py` |
 | Version management | `Bash` → `python3 ${CLAUDE_SKILL_DIR}/tools/version_manager.py` |
+| STAR story management | `Bash` → `python3 ${CLAUDE_SKILL_DIR}/tools/storybank_manager.py` |
+| Pre-interview confidence | `Bash` → `python3 ${CLAUDE_SKILL_DIR}/tools/hype_generator.py` |
 
-**Base Directory**: Prep files are written to `./preps/{slug}/` (relative to project directory).
+**Base Directory**: Prep files written to `./preps/{slug}/`, storybank to `./storybank/` (relative to project directory).
 
 ---
 
@@ -1364,6 +1505,95 @@ User corrections have highest priority — above any search results.
 3. Performance assessment with next-round recommendations
 4. Data feedback: add real questions to questions.md (marked [REAL]), update company_brief.md, update meta.json
 5. Summary with hit rate and next steps
+
+---
+
+## Storybank
+
+Manage reusable STAR stories across multiple company interviews. Stories evolve automatically through mock practice.
+
+### Add Story
+
+**Trigger**: `/storybank add` or "I want to add a story"
+
+1. User describes an experience in free-form text
+2. Parse into STAR structure, flag weak/missing parts
+3. Auto-tag competencies via `references/competency_taxonomy.md` (15 categories: leadership, conflict, failure, etc.)
+4. User confirms tags and strength rating (1-5)
+5. Create: `python3 ${CLAUDE_SKILL_DIR}/tools/storybank_manager.py --action create --title "{title}" --competencies "{tags}" --industry "{industries}" --strength {N} --base-dir ./storybank`
+6. Write full STAR content to story file
+7. Show coverage update (STRONG/OK/WEAK/GAP)
+
+### List Stories
+
+**Trigger**: `/storybank list`
+Run: `python3 ${CLAUDE_SKILL_DIR}/tools/storybank_manager.py --action list --base-dir ./storybank`
+
+### Gap Analysis
+
+**Trigger**: `/storybank gaps`
+Run: `python3 ${CLAUDE_SKILL_DIR}/tools/storybank_manager.py --action gaps --base-dir ./storybank`
+
+For each gap, suggest what kind of experience to look for:
+```
+GAP: failure — You have no failure stories.
+Think about: a project that went wrong, a missed deadline, a technical
+decision you regret. Even small failures work if you show learning.
+```
+
+### Auto-Integration (Internal)
+
+**Step 4**: Auto-match stories to behavioral questions via `storybank_manager.py --action match`.
+**Step 5**: Show story cheat-sheet before mock starts (once only).
+**Step 6**: Auto-evolve stories with evaluator feedback via `storybank_manager.py --action evolve`.
+**Step 7**: Reference specific stories in prep_plan.md with practice tasks.
+
+---
+
+## Hype (Pre-Interview Confidence)
+
+Data-driven, personalized pre-interview confidence briefing based on mock scores and prep data. No generic motivation.
+
+### Trigger
+
+`/hype {slug}` or "I need confidence" / "interview coming up"
+
+### Timing Windows
+
+Auto-detected from `interview_date` in meta.json, or asked:
+- **WEEK_BEFORE** (7-3 days): Strategic prep, gap filling, score dashboard
+- **DAY_BEFORE** (1-2 days): Confidence snapshot, logistics, power phrases, story review
+- **MORNING_OF** (same day): 60-second boost, 3 key stories, opening script, calm-down protocol
+
+### Data Aggregation
+
+```bash
+python3 ${CLAUDE_SKILL_DIR}/tools/hype_generator.py \
+  --slug {slug} --timing {timing} --base-dir ./preps --storybank-dir ./storybank
+```
+
+### Company Culture Styles
+
+Auto-matched to company:
+- **Amazon**: Frame through Leadership Principles, "I took ownership by..."
+- **Google**: Emphasize thinking process, "Let me think through the tradeoffs..."
+- **Meta**: Focus on impact and speed, "This impacted X million users..."
+- **Startup**: Emphasize versatility, "I built this from scratch..."
+- **Banking**: Emphasize precision, "The analysis showed..."
+
+See `references/hype_templates.md` for full templates and phrases.
+
+### Tone Rules
+
+- NEVER use generic motivation ("you got this!", "believe in yourself!")
+- ALWAYS anchor confidence to specific data points from THEIR prep
+- Frame weaknesses as "areas of improvement" not "things you're bad at"
+- For low scores (<2.5), be honest but constructive
+- Match energy to timing: strategic → consolidating → energizing
+
+### Output
+
+Write to `preps/{slug}/hype.md` and display in conversation. Update meta.json.
 
 ---
 

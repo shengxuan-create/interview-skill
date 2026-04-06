@@ -189,6 +189,69 @@
       "should_trigger": true,
       "expected_mode": "create",
       "expected_behavior": "进入intake，首先询问目标公司名称"
+    },
+    {
+      "id": "trigger_storybank_add",
+      "description": "添加STAR故事",
+      "input": "/storybank add",
+      "should_trigger": true,
+      "expected_mode": "storybank_add",
+      "expected_behavior": "让用户描述经历，解析为STAR结构，自动标记能力标签，创建故事文件"
+    },
+    {
+      "id": "trigger_storybank_list",
+      "description": "查看故事库",
+      "input": "/storybank list",
+      "should_trigger": true,
+      "expected_mode": "storybank_list",
+      "expected_behavior": "调用storybank_manager.py --action list，按能力标签分组展示"
+    },
+    {
+      "id": "trigger_storybank_gaps",
+      "description": "故事库缺口分析",
+      "input": "/storybank gaps",
+      "should_trigger": true,
+      "expected_mode": "storybank_gaps",
+      "expected_behavior": "显示零故事或仅一个故事的能力标签，并给出补充建议"
+    },
+    {
+      "id": "trigger_storybank_cn",
+      "description": "中文触发故事库",
+      "input": "我想添加一个故事",
+      "should_trigger": true,
+      "expected_mode": "storybank_add",
+      "expected_behavior": "进入故事添加流程"
+    },
+    {
+      "id": "trigger_hype",
+      "description": "生成面试前信心简报",
+      "input": "/hype google-swe",
+      "should_trigger": true,
+      "expected_mode": "hype",
+      "expected_behavior": "检测时间窗口，聚合mock分数，生成公司文化匹配的信心简报"
+    },
+    {
+      "id": "trigger_hype_cn",
+      "description": "中文触发信心简报",
+      "input": "给我打气，明天面Google",
+      "should_trigger": true,
+      "expected_mode": "hype",
+      "expected_behavior": "检测DAY_BEFORE时间窗口，生成Google风格的信心简报"
+    },
+    {
+      "id": "trigger_hype_morning",
+      "description": "面试当天触发信心简报",
+      "input": "My Google interview is in 2 hours, I need a boost",
+      "should_trigger": true,
+      "expected_mode": "hype",
+      "expected_behavior": "Generate MORNING_OF timing, 60-second boost, quick story reminders"
+    },
+    {
+      "id": "no_trigger_storybank_word",
+      "description": "不应触发 — 含'story'但非故事库",
+      "input": "Help me write user stories for my sprint",
+      "should_trigger": false,
+      "expected_behavior": "Do not activate interview-skill — 'stories' here refers to agile user stories"
     }
   ]
 }
