@@ -1,0 +1,17 @@
+{
+  "company": "NovaTech AI",
+  "role": "Product Manager",
+  "slug": "novatech-pm",
+  "round": "onsite",
+  "language": "en",
+  "created_at": "2026-04-01T14:00:00Z",
+  "updated_at": "2026-04-01T14:00:00Z",
+  "version": "v1",
+  "research_confidence": "C",
+  "research_sources": 3,
+  "questions_count": 15,
+  "mock_completed": true,
+  "mock_score": 3.0,
+  "real_interview_completed": false,
+  "corrections_count": 0
+}

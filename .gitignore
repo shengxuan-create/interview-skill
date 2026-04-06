@@ -1,0 +1,26 @@
+# User-generated prep data (not committed)
+# But keep examples
+preps/*
+!preps/example_google_swe/
+!preps/example_startup_pm/
+!preps/example_bank_analyst/
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+*.egg-info/
+
+# Temp files
+/tmp/
+*.tmp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/

@@ -1,0 +1,45 @@
+{
+  "skill": "interview-skill",
+  "version": "1.0.0",
+  "test_cases": [
+    {
+      "id": "trigger_create_cn",
+      "description": "中文触发创建模式",
+      "input": "帮我准备Google的SWE面试",
+      "should_trigger": true,
+      "expected_mode": "create",
+      "expected_behavior": "进入intake流程，询问JD来源和面试轮次"
+    },
+    {
+      "id": "trigger_create_en",
+      "description": "English trigger for create mode",
+      "input": "I have an interview at Meta for a product manager role next week",
+      "should_trigger": true,
+      "expected_mode": "create",
+      "expected_behavior": "Enter intake flow, ask for JD source and interview round"
+    },
+    {
+      "id": "trigger_mock",
+      "description": "触发mock模式",
+      "input": "/mock google-swe",
+      "should_trigger": true,
+      "expected_mode": "mock",
+      "expected_behavior": "读取preps/google-swe/，直接开始模拟面试"
+    },
+    {
+      "id": "trigger_debrief",
+      "description": "触发复盘模式",
+      "input": "我面完了，Google二面",
+      "should_trigger": true,
+      "expected_mode": "debrief",
+      "expected_behavior": "进入复盘收集流程"
+    },
+    {
+      "id": "no_trigger",
+      "description": "不应触发的普通对话",
+      "input": "帮我写一个Python脚本",
+      "should_trigger": false,
+      "expected_behavior": "不激活interview-skill"
+    }
+  ]
+}

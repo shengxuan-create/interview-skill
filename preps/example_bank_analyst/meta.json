@@ -1,0 +1,17 @@
+{
+  "company": "RBC (Royal Bank of Canada)",
+  "role": "Financial Analyst, Capital Markets",
+  "slug": "rbc-analyst",
+  "round": "onsite",
+  "language": "en",
+  "created_at": "2026-04-01T16:00:00Z",
+  "updated_at": "2026-04-01T16:00:00Z",
+  "version": "v1",
+  "research_confidence": "B",
+  "research_sources": 8,
+  "questions_count": 18,
+  "mock_completed": true,
+  "mock_score": 3.2,
+  "real_interview_completed": false,
+  "corrections_count": 0
+}
