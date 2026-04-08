@@ -36,6 +36,18 @@
 
 ## Quick Start
 
+### 🟢 Claude Desktop / Cowork 用户（最简单）
+
+1. **下载** [最新 Release 的 zip 包](https://github.com/shengxuan-create/interview-skill/releases/latest)（`interview-skill-vX.X.X.zip`）
+2. 在 Claude 桌面端打开 **Settings → Capabilities → Skills → Upload skill**
+3. **拖入 zip 文件**到弹窗的虚线框
+4. **完全退出 Claude 应用**（Cmd+Q / Ctrl+Q），然后**重新打开** —— ⚠️ 仅重启会话不够，必须退出整个 app
+5. 新会话中输入：「帮我准备 Google 的 SWE 面试」即可触发
+
+> ⚠️ **不要 git clone 到 `~/.claude/skills/`** —— Cowork / Claude Desktop 不读那个目录，必须通过 Upload skill 弹窗上传 zip 安装。
+
+### 🛠 Claude Code（CLI 用户）
+
 ```bash
 # 安装到Claude Code当前项目
 mkdir -p .claude/skills
@@ -52,6 +64,8 @@ pip3 install -r .claude/skills/interview-skill/requirements.txt
 ```
 
 Skill会自动引导你完成全部流程。
+
+> 📖 详细安装说明（含 OpenClaw / Cursor / Codex）：[INSTALL.md](INSTALL.md)
 
 ## 项目结构
 

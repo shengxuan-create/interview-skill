@@ -36,6 +36,18 @@
 
 ## Quick Start
 
+### 🟢 Claude Desktop / Cowork users (easiest)
+
+1. **Download** the [latest release zip](https://github.com/shengxuan-create/interview-skill/releases/latest) (`interview-skill-vX.X.X.zip`)
+2. In Claude desktop app, open **Settings → Capabilities → Skills → Upload skill**
+3. **Drag the zip** into the dashed dropzone
+4. **Fully quit Claude** (Cmd+Q / Ctrl+Q) and reopen it — ⚠️ restarting the conversation alone is NOT enough; the whole app must restart
+5. In a new conversation, type: "Help me prepare for a Google SWE interview"
+
+> ⚠️ **Do NOT `git clone` into `~/.claude/skills/`** — Cowork / Claude Desktop does not read that directory. You must upload the zip via the Upload skill dialog.
+
+### 🛠 Claude Code (CLI users)
+
 ```bash
 # Install to your Claude Code project
 mkdir -p .claude/skills
@@ -52,6 +64,8 @@ I have an interview at Google for a SWE L4 position
 ```
 
 The skill takes it from there.
+
+> 📖 Full install guide (incl. OpenClaw / Cursor / Codex): [INSTALL.md](INSTALL.md)
 
 ## Project Structure
 

@@ -1,8 +1,55 @@
 # 安装说明 / Installation Guide
 
+> 根据你使用的 Claude 形态选择安装方式 / Choose based on your Claude client.
+
+| 你在用 / You're using | 走哪条路 / Which section |
+|---|---|
+| 🟢 **Claude Desktop / Cowork** （桌面 app） | [→ Claude Desktop / Cowork](#claude-desktop--cowork-推荐--recommended) |
+| 🛠 **Claude Code**（终端 CLI） | [→ Claude Code](#claude-code) |
+| 🐳 **OpenClaw** | [→ OpenClaw](#openclaw) |
+| 📝 **Cursor / Codex** | [→ Cursor / Codex](#cursor--codex) |
+
 ---
 
-## Claude Code（推荐 / Recommended）
+## Claude Desktop / Cowork（推荐 / Recommended）
+
+> ⚠️ **Cowork / Claude Desktop 不读 `~/.claude/skills/` 目录！** Skill 必须通过 app 内的 Upload skill 弹窗上传 zip 安装。
+> ⚠️ **Cowork / Claude Desktop does NOT read `~/.claude/skills/`!** Skills must be installed via the in-app Upload skill dialog as a zip.
+
+### 步骤 / Steps
+
+1. **下载 zip / Download zip**
+   - 打开 [GitHub Releases](https://github.com/shengxuan-create/interview-skill/releases/latest)
+   - 下载 `interview-skill-vX.X.X.zip`
+
+2. **打开 Upload skill 弹窗 / Open Upload skill dialog**
+   - Claude Desktop → **Settings** → **Capabilities** → **Skills** → **Upload skill**
+
+3. **拖入 zip / Drag the zip**
+   - 把刚下载的 zip 拖到弹窗的虚线框，或点击虚线框选择文件
+   - Drag the zip into the dashed dropzone, or click to file-pick
+
+4. **完全退出 Claude，再重新打开 / Fully quit Claude, then reopen**
+   - macOS: `Cmd+Q`（不是关窗口）→ 重新打开 Claude
+   - Windows / Linux: `Ctrl+Q` → reopen
+   - ⚠️ **仅重启会话不够 / Restarting the session alone is NOT enough** —— 必须退出整个 app，新装的 skill 才会被加载
+
+5. **触发 skill / Trigger the skill**
+   - 在新会话中输入 / In a new conversation, type:
+     - 中文：「帮我准备 Google 的 SWE 面试」
+     - English: "Help me prepare for a Google SWE interview"
+
+### 常见问题 / Troubleshooting
+
+| 报错 / Error | 原因 / Cause | 解决 / Fix |
+|---|---|---|
+| `Zip must contain exactly one SKILL.md file` | 上传的 zip 不是从 Releases 下载的，是自己 git clone 后压缩的，包含示例 prep 里的额外 SKILL.md | 用本仓库 [Releases 页面](https://github.com/shengxuan-create/interview-skill/releases/latest) 的官方 zip，已经处理过 |
+| 安装后 skill 列表里找不到 | 没有完全退出 app | `Cmd+Q` 退出 Claude，重新打开 |
+| 触发后 skill 没响应 | 当前会话是装 skill 之前开的 | 开一个新会话再试 |
+
+---
+
+## Claude Code
 
 > **重要**：Claude Code 从 git 仓库根目录的 `.claude/skills/` 查找 skill。
 > **Important**: Claude Code looks for skills in `.claude/skills/` from the git repo root.

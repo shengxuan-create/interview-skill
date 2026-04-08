@@ -4,10 +4,10 @@ description: "面试助手：调研目标公司、生成定制面试题、模拟
 license: MIT
 user-invocable: true
 argument-hint: "公司名+职位 / company + role, e.g. 'Google SWE' or '帮我准备字节跳动后端面试'"
-compatibility: "Requires Python 3.9+, network access for web search. Works with Claude Code, OpenClaw, Cursor, Codex."
+compatibility: "Requires Python 3.9+, network access for web search. Works with Claude Desktop, Cowork, Claude Code, OpenClaw, Cursor, Codex."
 metadata:
   author: shengxuan-create
-  version: "1.0.0"
+  version: "1.0.1"
 allowed-tools: Read Write Edit Bash WebSearch
 ---
 
