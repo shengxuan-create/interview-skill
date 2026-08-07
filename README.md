@@ -15,6 +15,15 @@
 
 ---
 
+## v2.0 新特性
+
+- **AI 时代面试**:AI 面试官轮(异步视频面)应对、live coding 的 AI 使用政策两派打法、AI 岗 15 道新题型
+- **证据纪律**:公司简报只登记来源页逐字出现的信息,搜不到就标 GAP——绝不编造高频题
+- **评分校准**:STAR 评分带 4 分/2 分锚定示例,分数不漂移
+- **答案去 AI 味**:参考回答交付前过 8 项 humanize 清单(可接 humanizer skill)
+- **架构瘦身**:SKILL.md 1616 → ~110 行路由器,按需加载;新增 AGENTS.md 支持 Codex/Cursor
+- 详见 [CHANGELOG.md](CHANGELOG.md)
+
 ## 和手动准备的区别
 
 | | 自己搜 | interview-skill |

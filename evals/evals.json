@@ -1,257 +1,66 @@
 {
-  "skill": "interview-skill",
-  "version": "1.0.0",
-  "test_cases": [
+  "skill_name": "interview-skill",
+  "schema_note": "skill-creator format. Assertions to be added during eval runs; expected_output describes the pass bar.",
+  "evals": [
     {
-      "id": "trigger_create_cn",
-      "description": "中文触发创建模式",
-      "input": "帮我准备Google的SWE面试",
-      "should_trigger": true,
-      "expected_mode": "create",
-      "expected_behavior": "进入intake流程，询问JD来源和面试轮次"
+      "id": 1,
+      "prompt": "我下周三要面字节跳动的后端开发,一面技术面。JD我贴给你:负责推荐系统后端服务,要求熟悉Go、分布式缓存、高并发。帮我准备一下",
+      "expected_output": "进入创建模式并读 workflow-zh.md;走七步流程;公司简报每条带来源+置信度标签,无编造;题目含 Go/缓存/高并发定向题;全程中文",
+      "files": []
     },
     {
-      "id": "trigger_create_en",
-      "description": "English trigger for create mode",
-      "input": "I have an interview at Meta for a product manager role next week",
-      "should_trigger": true,
-      "expected_mode": "create",
-      "expected_behavior": "Enter intake flow, ask for JD source and interview round"
+      "id": 2,
+      "prompt": "ok so i have a google L4 swe onsite in 10 days, kinda freaking out. i did like 80 leetcode problems but never done a system design round. can u help",
+      "expected_output": "English throughout; create mode; prep plan prioritizes system design gap; LeetCode tracker attempted with graceful fallback; timeline built around 10 days",
+      "files": []
     },
     {
-      "id": "trigger_create_slash",
-      "description": "斜杠命令触发创建模式",
-      "input": "/interview-prep",
-      "should_trigger": true,
-      "expected_mode": "create",
-      "expected_behavior": "进入intake流程，从头开始询问公司和职位信息"
+      "id": 3,
+      "prompt": "帮我准备一家叫「杭州云栖智联科技」的初创公司的算法岗面试(这家公司很小,网上应该查不到什么)",
+      "expected_output": "证据纪律测试:调研结果稀少时如实降级到C/D级并明示信息缺口;绝不编造该公司的面试流程/高频题/文化;基于JD和行业通用框架生成,并明确告知用户局限",
+      "files": []
     },
     {
-      "id": "trigger_create_cn_variant",
-      "description": "中文变体触发 — 准备XX公司面试",
-      "input": "准备字节跳动后端工程师面试",
-      "should_trigger": true,
-      "expected_mode": "create",
-      "expected_behavior": "识别公司=字节跳动、职位=后端工程师，进入intake"
+      "id": 4,
+      "prompt": "听说亚马逊现在第一轮是AI视频面试,每题只有2分钟,我该怎么练?我的STAR故事都是三四分钟的",
+      "expected_output": "读 ai-era-interviews.md;给出结构前置/关键词覆盖/镜头纪律等具体策略;提出为每个故事做90秒压缩版;mock支持限时模式",
+      "files": []
     },
     {
-      "id": "trigger_create_en_variant",
-      "description": "English variant — implicit interview prep request",
-      "input": "I need to prepare for my Amazon SDE interview, it's a phone screen",
-      "should_trigger": true,
-      "expected_mode": "create",
-      "expected_behavior": "Detect company=Amazon, role=SDE, round=phone screen, enter intake"
+      "id": 5,
+      "prompt": "/mock bytedance-backend",
+      "expected_output": "读取已有prep进入模拟面试;按公司风格提问;过程中不评分;结束后评分前先读star_framework锚定示例;分数分布合理(非全同分);参考回答经humanize清单处理",
+      "files": []
     },
     {
-      "id": "trigger_mock",
-      "description": "触发mock模式",
-      "input": "/mock google-swe",
-      "should_trigger": true,
-      "expected_mode": "mock",
-      "expected_behavior": "读取preps/google-swe/，直接开始模拟面试"
+      "id": 6,
+      "prompt": "给我的回答打个分:'我们团队之前遇到过项目延期,大家一起加班解决了,最后按时上线,客户很满意。这体现了我的抗压能力。'",
+      "expected_output": "校准测试:对照锚点B应判2分附近(全程'我们'、无个人动作、无量化、结尾自我总结句);反馈指出具体缺失并给改进方向,不粉饰",
+      "files": []
     },
     {
-      "id": "trigger_mock_cn",
-      "description": "中文触发mock模式",
-      "input": "模拟面试 google-swe",
-      "should_trigger": true,
-      "expected_mode": "mock",
-      "expected_behavior": "读取preps/google-swe/，开始模拟面试"
+      "id": 7,
+      "prompt": "interview went ok i think?? they asked 2 questions i never prepped for (one about kafka exactly-once, one weird behavioral about disagreeing with my manager's manager). anyway it's done",
+      "expected_output": "Debrief mode; collects actual questions; prediction-vs-actual analysis; real questions appended to questions.md tagged [REAL]; meta.json updated; honest hit-rate reporting",
+      "files": []
     },
     {
-      "id": "trigger_mock_en",
-      "description": "English trigger for mock mode",
-      "input": "mock interview for meta-pm",
-      "should_trigger": true,
-      "expected_mode": "mock",
-      "expected_behavior": "Load preps/meta-pm/ and start mock interview"
+      "id": 8,
+      "prompt": "帮我把这段经历存进故事库:去年黑五大促前我发现支付网关的重试逻辑有个隐患,高峰期可能雪崩,我推动提前两周做了限流改造,大促当天支付成功率99.98%",
+      "expected_output": "Storybank模式;解析为STAR结构并标注薄弱部分(如Task中个人职责可再明确);打能力标签;入库后展示覆盖度;定稿文本过humanize清单",
+      "files": []
     },
     {
-      "id": "trigger_update_slash",
-      "description": "斜杠命令触发进化模式",
-      "input": "/update-prep google-swe",
-      "should_trigger": true,
-      "expected_mode": "update",
-      "expected_behavior": "读取preps/google-swe/，进入增量合并流程"
+      "id": 9,
+      "prompt": "明天就面试了,好紧张,感觉自己什么都没准备好",
+      "expected_output": "Hype模式(DAY_BEFORE窗口);用用户自己的mock分数和storybank数据锚定信心,零空洞鼓励;含后勤清单与心理准备;若无prep数据则如实说明并做最小可行准备",
+      "files": []
     },
     {
-      "id": "trigger_update_cn",
-      "description": "中文触发进化模式",
-      "input": "我有新面经要追加到google-swe",
-      "should_trigger": true,
-      "expected_mode": "update",
-      "expected_behavior": "识别slug=google-swe，进入merger流程"
-    },
-    {
-      "id": "trigger_correction_cn",
-      "description": "中文触发纠正模式",
-      "input": "不对，这家公司不是这样面的，应该是3轮技术面",
-      "should_trigger": true,
-      "expected_mode": "correct",
-      "expected_behavior": "进入纠正流程，识别需要修改的内容"
-    },
-    {
-      "id": "trigger_correction_en",
-      "description": "English trigger for correction mode",
-      "input": "That's wrong, the interview process is actually 2 rounds of system design",
-      "should_trigger": true,
-      "expected_mode": "correct",
-      "expected_behavior": "Enter correction flow, identify content to fix"
-    },
-    {
-      "id": "trigger_debrief",
-      "description": "触发复盘模式",
-      "input": "我面完了，Google二面",
-      "should_trigger": true,
-      "expected_mode": "debrief",
-      "expected_behavior": "进入复盘收集流程"
-    },
-    {
-      "id": "trigger_debrief_slash",
-      "description": "斜杠命令触发复盘模式",
-      "input": "/debrief google-swe",
-      "should_trigger": true,
-      "expected_mode": "debrief",
-      "expected_behavior": "读取preps/google-swe/，进入复盘流程"
-    },
-    {
-      "id": "trigger_debrief_en",
-      "description": "English trigger for debrief mode",
-      "input": "I finished the interview at Meta, it was the onsite round",
-      "should_trigger": true,
-      "expected_mode": "debrief",
-      "expected_behavior": "Enter debrief flow, collect real interview questions"
-    },
-    {
-      "id": "trigger_list",
-      "description": "列出所有prep",
-      "input": "/list-preps",
-      "should_trigger": true,
-      "expected_mode": "list",
-      "expected_behavior": "调用prep_writer.py --action list，展示已有prep列表"
-    },
-    {
-      "id": "trigger_rollback",
-      "description": "版本回滚",
-      "input": "/prep-rollback google-swe v2",
-      "should_trigger": true,
-      "expected_mode": "rollback",
-      "expected_behavior": "调用version_manager.py --action rollback，回滚到v2版本"
-    },
-    {
-      "id": "trigger_delete",
-      "description": "删除prep",
-      "input": "/delete-prep google-swe",
-      "should_trigger": true,
-      "expected_mode": "delete",
-      "expected_behavior": "确认后调用prep_writer.py --action delete，删除prep"
-    },
-    {
-      "id": "no_trigger_code",
-      "description": "不应触发 — 普通编程请求",
-      "input": "帮我写一个Python脚本",
-      "should_trigger": false,
-      "expected_behavior": "不激活interview-skill"
-    },
-    {
-      "id": "no_trigger_general",
-      "description": "不应触发 — 一般对话",
-      "input": "What's the weather like today?",
-      "should_trigger": false,
-      "expected_behavior": "Do not activate interview-skill"
-    },
-    {
-      "id": "no_trigger_interview_word",
-      "description": "不应触发 — 含'面试'但非准备请求",
-      "input": "帮我写一个面试管理系统的数据库schema",
-      "should_trigger": false,
-      "expected_behavior": "不激活interview-skill，这是编程任务而非面试准备"
-    },
-    {
-      "id": "no_trigger_mock_ambiguous",
-      "description": "不应触发 — 含'mock'但非面试",
-      "input": "Help me write mock tests for my API",
-      "should_trigger": false,
-      "expected_behavior": "Do not activate interview-skill — 'mock' here refers to test mocking"
-    },
-    {
-      "id": "edge_mixed_language",
-      "description": "边界 — 中英混合输入",
-      "input": "帮我准备Apple的iOS developer面试",
-      "should_trigger": true,
-      "expected_mode": "create",
-      "expected_behavior": "识别公司=Apple、职位=iOS developer，用中文回复（首句为中文）"
-    },
-    {
-      "id": "edge_no_company",
-      "description": "边界 — 未指定公司",
-      "input": "我要准备面试",
-      "should_trigger": true,
-      "expected_mode": "create",
-      "expected_behavior": "进入intake，首先询问目标公司名称"
-    },
-    {
-      "id": "trigger_storybank_add",
-      "description": "添加STAR故事",
-      "input": "/storybank add",
-      "should_trigger": true,
-      "expected_mode": "storybank_add",
-      "expected_behavior": "让用户描述经历，解析为STAR结构，自动标记能力标签，创建故事文件"
-    },
-    {
-      "id": "trigger_storybank_list",
-      "description": "查看故事库",
-      "input": "/storybank list",
-      "should_trigger": true,
-      "expected_mode": "storybank_list",
-      "expected_behavior": "调用storybank_manager.py --action list，按能力标签分组展示"
-    },
-    {
-      "id": "trigger_storybank_gaps",
-      "description": "故事库缺口分析",
-      "input": "/storybank gaps",
-      "should_trigger": true,
-      "expected_mode": "storybank_gaps",
-      "expected_behavior": "显示零故事或仅一个故事的能力标签，并给出补充建议"
-    },
-    {
-      "id": "trigger_storybank_cn",
-      "description": "中文触发故事库",
-      "input": "我想添加一个故事",
-      "should_trigger": true,
-      "expected_mode": "storybank_add",
-      "expected_behavior": "进入故事添加流程"
-    },
-    {
-      "id": "trigger_hype",
-      "description": "生成面试前信心简报",
-      "input": "/hype google-swe",
-      "should_trigger": true,
-      "expected_mode": "hype",
-      "expected_behavior": "检测时间窗口，聚合mock分数，生成公司文化匹配的信心简报"
-    },
-    {
-      "id": "trigger_hype_cn",
-      "description": "中文触发信心简报",
-      "input": "给我打气，明天面Google",
-      "should_trigger": true,
-      "expected_mode": "hype",
-      "expected_behavior": "检测DAY_BEFORE时间窗口，生成Google风格的信心简报"
-    },
-    {
-      "id": "trigger_hype_morning",
-      "description": "面试当天触发信心简报",
-      "input": "My Google interview is in 2 hours, I need a boost",
-      "should_trigger": true,
-      "expected_mode": "hype",
-      "expected_behavior": "Generate MORNING_OF timing, 60-second boost, quick story reminders"
-    },
-    {
-      "id": "no_trigger_storybank_word",
-      "description": "不应触发 — 含'story'但非故事库",
-      "input": "Help me write user stories for my sprint",
-      "should_trigger": false,
-      "expected_behavior": "Do not activate interview-skill — 'stories' here refers to agile user stories"
+      "id": 10,
+      "prompt": "my recruiter says the coding round allows AI assistants, like we're expected to use cursor. how do i even prep for that",
+      "expected_output": "Reads ai-era-interviews.md camp-B strategy: prompt quality, critical review of AI output, debugging AI code drills, think-aloud pilot-not-passenger framing; concrete practice tasks added to plan",
+      "files": []
     }
   ]
 }

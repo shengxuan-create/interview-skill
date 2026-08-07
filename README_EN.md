@@ -15,6 +15,15 @@
 
 ---
 
+## What's new in v2.0
+
+- **AI-era interviews**: async-video/AI-screener strategies, both camps of live-coding AI policy, 15 new AI-role questions
+- **Evidence discipline**: company briefs only register facts appearing verbatim at the source; gaps are labeled, never fabricated
+- **Calibrated scoring**: STAR scoring ships with 4-point and 2-point anchor answers
+- **Humanized answers**: every reference answer passes an 8-item de-AI checklist before delivery
+- **Slim architecture**: SKILL.md 1616 → ~110-line router with progressive disclosure; new AGENTS.md for Codex/Cursor
+- See [CHANGELOG.md](CHANGELOG.md)
+
 ## How It Compares to Manual Prep
 
 | | Manual | interview-skill |
