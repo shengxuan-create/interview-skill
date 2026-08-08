@@ -4,7 +4,7 @@ description: "候选人视角的面试备战助手——帮用户自己拿 offer
 license: MIT
 user-invocable: true
 argument-hint: "公司+职位 company+role · /mock {slug} · /storybank · /hype {slug} · /debrief {slug}"
-compatibility: "Python 3.9+ for optional tools; network for web search. Works with Claude Code, Claude.ai, Cursor, Codex (see AGENTS.md)."
+compatibility: "Python 3.9+ for optional tools; network for web search. Works with Claude Desktop, Cowork, Claude Code, Claude.ai, OpenClaw, Cursor, Codex (non-Claude agents: see AGENTS.md). Desktop/Cowork install via in-app zip upload — see INSTALL.md."
 metadata:
   author: shengxuan-create
   version: "2.0.0"
