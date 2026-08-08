@@ -2,18 +2,36 @@
 
 # interview-skill
 
-> Interview Assistant — auto-research target companies, generate tailored questions, run mock interviews, and evaluate answers with the STAR framework.
+> Interview prep that **won't invent company facts, scores your STAR answers against anchors,
+> strips the AI tell from your prepared lines, and preps you for AI-interviewer rounds.**
+> For the candidate, not the hiring side. Bilingual EN / 中文.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Version](https://img.shields.io/badge/version-2.0.0-orange.svg)](CHANGELOG.md)
 [![Python 3.9+](https://img.shields.io/badge/Python-3.9%2B-blue.svg)](https://python.org)
 [![Claude Code](https://img.shields.io/badge/Claude%20Code-Skill-blueviolet)](https://claude.ai/code)
 [![AgentSkills](https://img.shields.io/badge/AgentSkills-Standard-green)](https://agentskills.io)
 
-[**中文**](README.md) · [Install](INSTALL.md) · [Architecture](docs/ARCHITECTURE.md)
+[**中文**](README.md) · [Install](INSTALL.md) · [Changelog](CHANGELOG.md) · [Architecture](docs/ARCHITECTURE.md)
 
 </div>
 
+<div align="center">
+  <img src="assets/demo-scoring.png" alt="interview-skill scoring a STAR answer: per-dimension marks, calling out that 'we all worked overtime' is a negative signal, then a rewrite skeleton" width="100%">
+  <sub>Real output, unedited. One scoring pass: per-dimension marks → the problem you couldn't see → a rewrite skeleton. (Demo is in Chinese; the skill follows your language.)</sub>
+</div>
+
 ---
+
+## Why not just ask the model directly
+
+**Models invent company facts.** Ask "what does Company X ask in their backend interview" and you get a clean list. Some of it is real; some is a plausible average of every backend interview on the internet. You can't tell which — but you're the one walking into the room with it. Here every fact in a company brief carries a source and a confidence label (HIGH / MEDIUM / LOW / GAP). If nothing confirms it, it says GAP and tells you to ask the recruiter. A brief with 60% coverage you can trust beats one with 100% coverage you can't.
+
+**Scoring drifts.** Without anchors, a scoring pass turns into an all-4s comfort session or an all-2s beatdown depending on what it saw first. This one reads two anchored examples (a 4-point and a 2-point answer) before scoring, then checks the distribution afterward — six answers landing on the same score means the scale broke, so it re-scores.
+
+**Interviewers can hear AI now.** Rule-of-three phrasing, a "this demonstrates my X" tag at the end of every paragraph, a flawless-hero narrative. A "perfect" answer that reads as AI-written costs you more than a plain honest one. Generated reference answers go through a de-AI pass before you see them.
+
+**AI-interviewer rounds are a different game.** Async video screens give you 90 seconds per question and weight the first 15 heaviest; some companies ban Copilot in live coding while others expect you to use it. Both cases have their own playbook here.
 
 ## What's new in v2.0
 

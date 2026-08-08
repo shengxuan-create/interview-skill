@@ -2,18 +2,35 @@
 
 # interview-skill
 
-> 面试助手——自动调研目标公司，生成定制化面试准备材料，模拟真实面试，STAR框架逐题评分。
+> 面试准备 skill:**调研公司不编造 · STAR 评分带锚点 · 答案去 AI 味 · AI 面试官轮应对**
+> 帮你自己拿 offer,不是帮公司招人。中英双语。
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Version](https://img.shields.io/badge/version-2.0.0-orange.svg)](CHANGELOG.md)
 [![Python 3.9+](https://img.shields.io/badge/Python-3.9%2B-blue.svg)](https://python.org)
 [![Claude Code](https://img.shields.io/badge/Claude%20Code-Skill-blueviolet)](https://claude.ai/code)
 [![AgentSkills](https://img.shields.io/badge/AgentSkills-Standard-green)](https://agentskills.io)
 
-[**English**](README_EN.md) · [安装说明](INSTALL.md) · [架构文档](docs/ARCHITECTURE.md)
+[**English**](README_EN.md) · [安装说明](INSTALL.md) · [更新日志](CHANGELOG.md) · [架构文档](docs/ARCHITECTURE.md)
 
 </div>
 
+<div align="center">
+  <img src="assets/demo-scoring.png" alt="interview-skill 对一段 STAR 回答的评分:逐维度打分、指出「加班是负面信号」、给出改写骨架" width="100%">
+  <sub>真实输出,未经修饰。一次 STAR 评分:逐维度扣分 → 点破隐藏问题 → 给改写骨架。</sub>
+</div>
+
 ---
+
+## 为什么不是「直接问 AI」就够了
+
+**AI 会编公司信息。** 你问「这家公司面试常问什么」,得到的列表里有真的,也有它根据全网面经平均出来的,你分不清——但拿着它进考场的是你。这个 skill 的公司简报里,每条信息都带来源和置信度标签(HIGH / MEDIUM / LOW / GAP);查不到就写 GAP 并建议你直接问 recruiter,**绝不编一个看起来很像的**。一份 60% 覆盖但全可信的简报,比一份 100% 覆盖混着幻觉的有用得多。
+
+**评分会漂移。** 没有锚点的打分,连着看几个好答案就变严、看几个差答案就变松。这里的 STAR 评分先读两个锚定示例(一个 4 分、一个 2 分)再打分,打完还回看分布——六道题全同一个分,说明尺子坏了,重评。
+
+**面试官现在听得出 AI 写的答案。** 三段排比、每段结尾「这体现了我的 XX 能力」、全程零失误的叙事。一段被听出 AI 味的「完美回答」,比一段朴素的真实回答伤害大。生成的参考答案交付前会过一遍去 AI 味清单。
+
+**AI 面试官轮是新战场。** 异步视频面每题 90 秒、前 15 秒权重最高;live coding 有的公司禁用 Copilot、有的要求你用。这两种情况的准备方式完全不同,skill 里都有对应打法。
 
 ## v2.0 新特性
 
@@ -21,7 +38,8 @@
 - **证据纪律**:公司简报只登记来源页逐字出现的信息,搜不到就标 GAP——绝不编造高频题
 - **评分校准**:STAR 评分带 4 分/2 分锚定示例,分数不漂移
 - **答案去 AI 味**:参考回答交付前过 8 项 humanize 清单(可接 humanizer skill)
-- **架构瘦身**:SKILL.md 1616 → ~110 行路由器,按需加载;新增 AGENTS.md 支持 Codex/Cursor
+- **架构瘦身**:SKILL.md 1616 → 87 行路由器,按需加载;新增 AGENTS.md 支持 Codex/Cursor
+- **触发准确率 100%**(优化前 92%/88%):20 条真实 query × 3 次实测 × 训练-测试切分
 - 详见 [CHANGELOG.md](CHANGELOG.md)
 
 ## 和手动准备的区别
