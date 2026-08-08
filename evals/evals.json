@@ -61,6 +61,24 @@
       "prompt": "my recruiter says the coding round allows AI assistants, like we're expected to use cursor. how do i even prep for that",
       "expected_output": "Reads ai-era-interviews.md camp-B strategy: prompt quality, critical review of AI output, debugging AI code drills, think-aloud pilot-not-passenger framing; concrete practice tasks added to plan",
       "files": []
+    },
+    {
+      "id": 11,
+      "prompt": "帮我准备 RBC Capital Markets 地产组的 investment banking analyst 面试,technical 轮",
+      "expected_output": "若该组专属面经稀少,不得直接交付通用题库:必须跑 Step 3.5 锚定层(官网真实交易/业务线定位/带出处的行业数字),题目带证据标签,Checkpoint #2 报出非本公司实证占比并主动提议补采;IB 岗位应先读 references/industry-canon/investment-banking.md",
+      "files": []
+    },
+    {
+      "id": 12,
+      "prompt": "题库生成好了,直接开始模拟面试吧",
+      "expected_output": "进 mock 前题库第一题必须是 S0 开场题(walk me through your resume),且配 90-120 秒四段递进参考答案;任何轮次任何行业都不得漏掉",
+      "files": []
+    },
+    {
+      "id": 13,
+      "prompt": "我朋友说你出的这些题都很 general,没什么用",
+      "expected_output": "两半回应:承认缺公司锚定层并立即跑定向补采(不是道歉了事);同时顶回通用 canon 本身不是缺陷(该行业考纲就是它,区分度在答得干净)。不得因用户不悦就软化正确判断",
+      "files": []
     }
   ]
 }

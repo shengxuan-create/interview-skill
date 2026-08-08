@@ -7,7 +7,7 @@
 > For the candidate, not the hiring side. Bilingual EN / 中文.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-2.0.0-orange.svg)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-2.1.0-orange.svg)](CHANGELOG.md)
 [![Python 3.9+](https://img.shields.io/badge/Python-3.9%2B-blue.svg)](https://python.org)
 [![Claude Code](https://img.shields.io/badge/Claude%20Code-Skill-blueviolet)](https://claude.ai/code)
 [![AgentSkills](https://img.shields.io/badge/AgentSkills-Standard-green)](https://agentskills.io)
@@ -32,6 +32,14 @@
 **Interviewers can hear AI now.** Rule-of-three phrasing, a "this demonstrates my X" tag at the end of every paragraph, a flawless-hero narrative. A "perfect" answer that reads as AI-written costs you more than a plain honest one. Generated reference answers go through a de-AI pass before you see them.
 
 **AI-interviewer rounds are a different game.** Async video screens give you 90 seconds per question and weight the first 15 heaviest; some companies ban Copilot in live coding while others expect you to use it. Both cases have their own playbook here.
+
+## What's new in v2.1 (driven by real usage)
+
+- **Question banks now report their evidence mix** — every question is tagged verified / inferred / generic, and delivery states what share is not evidenced at this company. Above 40%, it offers a targeted second pass instead of waiting for you to complain.
+- **Anchor layer is a standard step** — real deals, desk positioning, current industry numbers with attribution. When interview reports are thin, that budget goes here rather than into a generic fallback.
+- **The S0 opener is mandatory** — "walk me through your resume" is now question one in every bank (v2.0's category table left it no slot, so it was dropped entirely).
+- **Industry canon library** — investment banking / capital markets first; question generation reads it before layering on company specifics.
+- See [CHANGELOG.md](CHANGELOG.md)
 
 ## What's new in v2.0
 

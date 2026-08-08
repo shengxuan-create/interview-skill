@@ -268,6 +268,49 @@ Paste or describe it, and I'll integrate. Or say "no, continue".
 - **Grade C** (1-4) → Primarily JD + industry framework
 - **Grade D** (0) → Inform user of insufficient data, generate based on JD only
 
+#### [v2.1] Degrading means switching evidence type, not falling back to generic
+
+**This is the biggest flaw real usage exposed (2026-08-08).** In a prep for an RBC real-estate
+investment banking analyst role, that desk had zero group-specific interview reports and research
+came back Grade B. The system fell back to the generic bank, and the user's feedback was "most of
+these questions are pretty general." A targeted second pass then easily surfaced three hard assets:
+the firm's own marquee transactions page (one of the deals was the very building the interview is
+held in), the current policy rate plus an industry cap-rate report, and a verbatim question from
+that specific desk. **That material was there the whole time; nobody went and got it.**
+
+So the rule changes: **when interview-report evidence is thin, don't pocket the search budget —
+spend it on the other three evidence types.**
+
+| Interview-report evidence | Correct response |
+|---|---|
+| Plentiful (Grade A/B) | Proceed as normal; still run the anchor layer (Step 3.5) as an upgrade |
+| Thin or zero (Grade C/D) | **Do not** ship the generic bank and call it done. Redirect the search budget into Step 3.5 anchor material, and disclose the generic share honestly at Checkpoint #2 |
+
+### Step 3.5: Company anchor material (v2.1 — a standard step, not a rescue)
+
+Goal: give the candidate specific facts only someone who did the homework could say. This material
+exists for nearly any company and comes entirely from verifiable first-party sources, so no
+inference is required.
+
+**Four types to collect (1-3 items each, always with source URL and date):**
+
+1. **Recent concrete moves** — deals, launches, projects, client work from the company's own pages.
+   Finance: transactions/deals pages. Product: changelog/newsroom. Services: case studies.
+2. **Where this desk/team sits** — what the group does inside the company, its scale, how it works
+   with other groups (official business-line pages).
+3. **Key numbers in the industry right now** — policy rates, industry averages, market size, always
+   **with attribution and as-of date** ("the Colliers Q2 report puts the national average cap rate
+   at 6.58%"). Numbers recalled from memory are not allowed.
+4. **Quotable company self-description** — values, strategy language, leadership statements
+   (verbatim from official pages, annual reports, press releases).
+
+**Once collected:**
+- Turn each item into one sentence the candidate can actually say in the room, and put it in a
+  dedicated anchor section of questions.md
+- Prioritize whatever overlaps the candidate's own situation (the interview location, their alma
+  mater, an industry they've worked in). Higher overlap reads more like genuine homework.
+- If nothing can be found, label it a GAP. Never invent deal names, numbers, or quotes.
+
 #### Checkpoint #1: Company Brief
 
 Consolidate all Research Engine data into `preps/{slug}/company_brief.md`.
@@ -342,7 +385,19 @@ Generate tailored interview questions based on company brief, JD, round, and res
 5. Generic high-frequency questions from `references/question_bank.md`
 6. [v2] **AI-era questions**: if the role touches AI/ML/LLM, mix in 3-6 from question_bank's AI-Era section (strategy in `ai-era-interviews.md`); for any role add one "how do you use AI to work better"; if the brief flags an AI interview round, add 90-second story-cut drill tasks
 
-**Question count by round:**
+**[v2.1] S0 opener: first question in every bank, every round, every industry**
+
+"Walk me through your resume" / "Tell me about yourself" opens most interviews, but the v2.0 count
+table sorts by Behavioral/Technical/System Design/Situational and **left it no slot, so it got
+dropped entirely** (exposed by real usage 2026-08-08). Fumbling question one means spending the
+rest of the interview recovering.
+
+So: **question 1 of every bank is the opener**, outside the quotas below, with a 90-120 second
+answer skeleton built in four moves (background → most relevant experience → differentiating second
+experience → why this company and this team), landing on this role. Run that answer through the
+de-AI checklist in §Step 6.
+
+**Question count by round (excludes the S0 opener):**
 
 | Round | Behavioral | Technical | System Design | Situational | Total |
 |-------|-----------|-----------|--------------|-------------|-------|
@@ -351,6 +406,17 @@ Generate tailored interview questions based on company brief, JD, round, and res
 | Behavioral | 8 | 0 | 0 | 3 | 11 |
 | Onsite (full day) | 8 | 8 | 3 | 2 | 21 |
 | Final Round | 5 | 0 | 1 | 3 | 9 |
+
+**[v2.1] Every question carries an evidence tag** (next to the number; totals get reported at delivery):
+
+| Tag | Meaning |
+|---|---|
+| `[verified·verbatim]` | Appears word-for-word on a source page |
+| `[verified·reworded]` | Topic is evidenced; we rewrote the phrasing |
+| `[industry-inferred]` | Standard canon for the industry/role, not evidenced at this company |
+| `[generic-canon]` | Drawn from question_bank.md |
+| `[anchor]` | Company-specific, built from Step 3.5 material |
+| `[resume-gap]` | Targets a weakness from resume_match |
 
 **Per-question format:**
 ```markdown
@@ -367,16 +433,31 @@ Generate tailored interview questions based on company brief, JD, round, and res
 **Resume gap questions (if resume_match exists):**
 For each gap in `resume_match.gap_skills`, generate 1-2 questions. Goal: prepare user to answer "you don't have XX experience" by reframing as learning willingness and transferable skills.
 
-**Checkpoint #2:**
+**Checkpoint #2 (v2.1 — report the evidence mix, not just category counts):**
 ```
-Generated {N} interview questions:
-  - Behavioral: {n1}
-  - Technical: {n2}
-  - System Design: {n3}
-  - Situational: {n4}
+Generated {N} questions (plus the S0 opener):
+  - Behavioral: {n1} · Technical: {n2} · System Design: {n3} · Situational: {n4}
+
+Evidence mix:
+  verified·verbatim {a} · verified·reworded {b} · anchor {c}
+  industry-inferred {d} · generic-canon {e} · resume-gap {f}
+  → {(d+e)/N}% not evidenced at this company{, because <zero reports for this desk /
+    research grade C / etc.>}
+
+{if the non-evidenced share exceeds 40%, add:}
+  That share is high. I can run a targeted second pass and anchor these to their actual
+  deals, recent moves, and current industry numbers, so the questions shift from "everyone
+  in this field asks this" to "this team would ask this." Want me to?
 
 Want to adjust focus areas? Or proceed to mock interview?
 ```
+
+**Why this accounting is mandatory:** evidence discipline was wired into the company brief but not
+into the question bank, so users saw a flat, uniform-looking list and concluded "these are all
+pretty general" (real feedback, 2026-08-08). Disclosing the mix and offering the second pass beats
+waiting for the complaint. Note that **generic canon is not itself a defect** — IB technical rounds
+really are the canon, and tech interviews have their own must-know classics. The defect is letting
+the user assume that's all there is.
 
 After confirmation → Step 5.
 

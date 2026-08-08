@@ -6,7 +6,7 @@
 > 帮你自己拿 offer,不是帮公司招人。中英双语。
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-2.0.0-orange.svg)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-2.1.0-orange.svg)](CHANGELOG.md)
 [![Python 3.9+](https://img.shields.io/badge/Python-3.9%2B-blue.svg)](https://python.org)
 [![Claude Code](https://img.shields.io/badge/Claude%20Code-Skill-blueviolet)](https://claude.ai/code)
 [![AgentSkills](https://img.shields.io/badge/AgentSkills-Standard-green)](https://agentskills.io)
@@ -31,6 +31,14 @@
 **面试官现在听得出 AI 写的答案。** 三段排比、每段结尾「这体现了我的 XX 能力」、全程零失误的叙事。一段被听出 AI 味的「完美回答」,比一段朴素的真实回答伤害大。生成的参考答案交付前会过一遍去 AI 味清单。
 
 **AI 面试官轮是新战场。** 异步视频面每题 90 秒、前 15 秒权重最高;live coding 有的公司禁用 Copilot、有的要求你用。这两种情况的准备方式完全不同,skill 里都有对应打法。
+
+## v2.1 新特性(真实使用驱动)
+
+- **题库带证据账**:每题标注实证/推断/通用来源,交付时报出「非本公司实证占 X%」,超 40% 主动补采
+- **锚定层升为标准步骤**:采公司真实交易、业务线定位、带出处的行业数字——面经稀少时把预算投这里,而不是退回通用题库
+- **S0 开场题写进硬编制**:`walk me through your resume` 任何轮次固定第一题(v2.0 因分类表没给它留位置而整个漏掉)
+- **行业考纲库**:新增 IB / capital markets 一份,出题先读它再补公司专属层
+- 详见 [CHANGELOG.md](CHANGELOG.md)
 
 ## v2.0 新特性
 

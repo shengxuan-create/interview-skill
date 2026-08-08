@@ -7,7 +7,7 @@ argument-hint: "公司+职位 company+role · /mock {slug} · /storybank · /hyp
 compatibility: "Python 3.9+ for optional tools; network for web search. Works with Claude Desktop, Cowork, Claude Code, Claude.ai, OpenClaw, Cursor, Codex (non-Claude agents: see AGENTS.md). Desktop/Cowork install via in-app zip upload — see INSTALL.md."
 metadata:
   author: shengxuan-create
-  version: "2.0.0"
+  version: "2.1.0"
 allowed-tools: Read Write Edit Bash WebSearch
 ---
 
@@ -46,6 +46,8 @@ This file is a router. **Find the mode below, then Read the matching reference f
 - `references/star_framework.md` — STAR 评分维度、权重、**分档锚定示例(v2 校准用,评分前必读)**。
 - `references/humanize-answers.md` — 参考答案与 STAR 故事的去 AI 味清单(Step 6 生成参考回答后过一遍;装了 `humanizer` skill 就用它,没装用本清单)。
 - `references/question_bank.md` — 通用题库(含 v2 新增 AI 时代题型节),Step 4 补充题目时读。
+- `references/industry-canon/` — **行业考纲(v2.1)**。目标岗位命中该行业时,Step 4 出题**先读这份**再补公司专属层。
+  现有:`investment-banking.md`(IB / capital markets / ER / PE / 公司金融)。目录里没有的行业,按通用流程走。
 - `references/competency_taxonomy.md` / `company_culture_tags.md` / `interview_formats.md` / `hype_templates.md` — 各自被 workflow 对应步骤点名时读。
 
 ---
@@ -70,11 +72,15 @@ This file is a router. **Find the mode below, then Read the matching reference f
 
 ---
 
-## 三条核心纪律 / Three Core Disciplines (v2)
+## 四条核心纪律 / Four Core Disciplines
 
-这三条贯穿所有模式,优先级高于任何模板:
+这四条贯穿所有模式,优先级高于任何模板:
 
 1. **证据纪律 / Evidence discipline** — 公司简报里每条事实必须带来源与置信度标签(HIGH/MEDIUM/LOW/GAP);**搜不到就标 GAP,绝不编造**。宁可交一份 60% 覆盖但全部可信的简报,不交一份 100% 覆盖但混入幻觉的。用户拿着编造的"高频题"进考场,是这个 skill 能犯的最严重错误。
+   **【v2.1 延伸到题库】**每道题带证据标签,Checkpoint #2 必须报出「非本公司实证占多少」;
+   **面经证据不足时不许退回通用题库交差**,要把预算转投 Step 3.5 锚定层(公司真实交易/近期动作/
+   行业当下数字)。真实使用判例:某次 prep 因此被评「问题都很 general」,而定向补采轻松挖到硬货——
+   材料一直都在,只是没去挖。
 2. **评分校准 / Calibrated scoring** — STAR 评分前先读 `star_framework.md` 的锚定示例,把自己的尺子对准锚点再打分。没有锚点的评分会漂移:要么全 4 分的安慰局,要么全 2 分的打击局,两者都毁掉练习价值。
 3. **答案像人 / Human-sounding answers** — 生成的参考回答与 STAR 故事,交付前按 `humanize-answers.md` 过一遍(装了 `humanizer` skill 则直接用)。2026 年的面试官都在识别 AI 写的答案;一段被听出 AI 味的"完美回答"比一段朴素的真实回答伤害大得多。
 
